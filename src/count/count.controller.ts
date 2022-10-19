@@ -1,6 +1,7 @@
 import {
   Controller,
   Get,
+  Header,
   HttpException,
   HttpStatus,
   Param,
@@ -13,6 +14,7 @@ export class CountController {
   constructor(private countService: CountService) {}
 
   @Get(':username')
+  @Header('Cache-Control', 'max-age=0, no-cache, no-store, must-revalidate')
   getCount(@RealIP() ip: string, @Param('username') username: string) {
     if (process.env.PRIVATE_USERNAME) {
       if (username !== process.env.PRIVATE_USERNAME) {
